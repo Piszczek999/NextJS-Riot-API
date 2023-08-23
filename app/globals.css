@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply m-4;
+}
+
+h1,
+h2 {
+  @apply text-blue-900 font-bold text-xl;
+}
+
+.navbar {
+  @apply flex
+  items-center
+  shadow-sm
+  pb-2;
+}
+
+.nav-item {
+  @apply border-b-2 border-blue-500 border-opacity-0 hover:text-blue-500 hover:border-opacity-100;
+}
+
+.container {
+  @apply m-4;
+}
