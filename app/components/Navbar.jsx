@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Searchbar from "./Searchbar";
 
 export default function Navbar() {
   return (
@@ -7,15 +8,16 @@ export default function Navbar() {
         <h1 className="text-4xl hover:text-blue-500">LoLStats</h1>
       </Link>
       <div className="flex justify-between grow gap-4">
-        <div className="flex gap-4 ml-4">
+        <div className="flex gap-4 ml-4 items-center">
           <Link href="/" className="nav-item">
             Home Page
           </Link>
           <Link href="/stats" className="nav-item">
             Statistics
           </Link>
+          <Searchbar />
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
           <Link href="/login" className="nav-item">
             Log in
           </Link>
