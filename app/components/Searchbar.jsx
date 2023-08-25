@@ -11,6 +11,7 @@ export default function Searchbar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setText("");
+    router.refresh();
     router.push(text);
   };
 

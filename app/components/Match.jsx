@@ -28,6 +28,17 @@ function getSecondaryRune(player) {
   return player.perks.styles[1].style;
 }
 
+function getGameDuration(match) {
+  const totalSeconds = match.info.gameDuration;
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  const formattedTime = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+  return formattedTime;
+}
+
 export default async function Match({ matchId, puuid }) {
   const runes = {
     8100: "perk-images/Styles/7200_Domination.png",
@@ -77,9 +88,29 @@ export default async function Match({ matchId, puuid }) {
   const match = await getMatch(matchId);
   const player = getPlayer(match, puuid);
 
+  const playerItems = [
+    player.item0,
+    player.item1,
+    player.item2,
+    player.item6,
+    player.item3,
+    player.item4,
+    player.item5,
+  ];
+
   return (
-    <div className="flex gap-4 shadow my-2 bg-gray-100">
-      <h3>{player.win ? "Victory" : "Defeat"}</h3>
+    <div className="flex gap-4 shadow my-2 bg-gray-100 items-center">
+      <div>
+        <p className="text-xs text-gray-500">{match.info.gameMode}</p>
+        {player.win && (
+          <h3 className="text-lg text-green-500 font-medium">Victory</h3>
+        )}
+        {!player.win && (
+          <h3 className="text-lg text-red-500 font-medium">Defeat</h3>
+        )}
+        <p className="text-xs text-gray-500">{getGameDuration(match)}</p>
+      </div>
+
       <div className="flex">
         <div>
           <img
@@ -93,6 +124,7 @@ export default async function Match({ matchId, puuid }) {
           />
           <div className="flex gap-1 items-center justify-center">
             <img
+              className="bg-gray-300 rounded-full"
               src={
                 "https://ddragon.canisback.com/img/" +
                 runes[getPrimaryRune(player)]
@@ -101,12 +133,13 @@ export default async function Match({ matchId, puuid }) {
               width={20}
             />
             <img
+              className="bg-gray-300 rounded-full p-1"
               src={
                 "https://ddragon.canisback.com/img/" +
                 runes[getSecondaryRune(player)]
               }
               alt="Secondary rune"
-              width={12}
+              width={20}
             />
           </div>
         </div>
@@ -130,6 +163,19 @@ export default async function Match({ matchId, puuid }) {
             width={25}
           />
         </div>
+      </div>
+      <div className="grid grid-cols-4 gap-0.5">
+        {playerItems.map((item) => (
+          <img
+            src={
+              "http://ddragon.leagueoflegends.com/cdn/13.16.1/img/item/" +
+              item +
+              ".png"
+            }
+            alt=""
+            width={30}
+          />
+        ))}
       </div>
     </div>
   );

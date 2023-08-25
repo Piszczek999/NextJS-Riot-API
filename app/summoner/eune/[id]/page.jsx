@@ -1,7 +1,7 @@
 import Match from "@/app/components/Match";
 import { notFound } from "next/navigation";
 
-async function getPuuid(name) {
+async function getAccount(name) {
   const res = await fetch(
     "https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +
       name +
@@ -18,8 +18,7 @@ async function getPuuid(name) {
     notFound();
   }
 
-  const data = await res.json();
-  return data.puuid;
+  return res.json();
 }
 
 async function getMatchIds(puuid) {
@@ -38,13 +37,13 @@ async function getMatchIds(puuid) {
 }
 
 export default async function Profile({ params }) {
-  const puuid = await getPuuid(params.id);
-  const matchIds = await getMatchIds(puuid);
+  const account = await getAccount(params.id);
+  const matchIds = await getMatchIds(account.puuid);
 
   return (
     <main>
       {matchIds.map((matchId) => (
-        <Match puuid={puuid} matchId={matchId} />
+        <Match puuid={account.puuid} matchId={matchId} />
       ))}
     </main>
   );
