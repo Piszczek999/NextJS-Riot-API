@@ -9,7 +9,7 @@ async function getMatch(matchId) {
       process.env.RIOT_API_KEY,
     {
       next: {
-        revalidate: 0,
+        revalidate: 60 * 60,
       },
     }
   );

@@ -1,4 +1,5 @@
 import Match from "@/app/components/Match";
+import { notFound } from "next/navigation";
 
 async function getPuuid(name) {
   const res = await fetch(
@@ -8,10 +9,15 @@ async function getPuuid(name) {
       process.env.RIOT_API_KEY,
     {
       next: {
-        revalidate: 60,
+        revalidate: 60 * 60,
       },
     }
   );
+
+  if (!res.ok) {
+    notFound();
+  }
+
   const data = await res.json();
   return data.puuid;
 }
@@ -36,10 +42,10 @@ export default async function Profile({ params }) {
   const matchIds = await getMatchIds(puuid);
 
   return (
-    <div>
+    <main>
       {matchIds.map((matchId) => (
         <Match puuid={puuid} matchId={matchId} />
       ))}
-    </div>
+    </main>
   );
 }
