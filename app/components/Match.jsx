@@ -1,5 +1,4 @@
-import Image from "next/image";
-// import Icon from "@/app/perk-images/Styles/7200_Domination.png";
+import { runes, spells } from "../constants";
 
 async function getMatch(matchId) {
   const res = await fetch(
@@ -21,11 +20,17 @@ function getPlayer(match, puuid) {
 }
 
 function getPrimaryRune(player) {
-  return player.perks.styles[0].selections[0].perk;
+  if (player.perks.styles[0]?.selections[0]?.perk) {
+    return player.perks.styles[0].selections[0].perk;
+  }
+  return 0;
 }
 
 function getSecondaryRune(player) {
-  return player.perks.styles[1].style;
+  if (player.perks.styles[1]?.style) {
+    return player.perks.styles[1].style;
+  }
+  return 0;
 }
 
 function getGameDuration(match) {
@@ -40,51 +45,6 @@ function getGameDuration(match) {
 }
 
 export default async function Match({ matchId, puuid }) {
-  const runes = {
-    8100: "perk-images/Styles/7200_Domination.png",
-    8300: "perk-images/Styles/7203_Whimsy.png",
-    8000: "perk-images/Styles/7201_Precision.png",
-    8400: "perk-images/Styles/7204_Resolve.png",
-    8200: "perk-images/Styles/7202_Sorcery.png",
-    8112: "perk-images/Styles/Domination/Electrocute/Electrocute.png",
-    8124: "perk-images/Styles/Domination/Predator/Predator.png",
-    8128: "perk-images/Styles/Domination/DarkHarvest/DarkHarvest.png",
-    9923: "perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png",
-    8351: "perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png",
-    8360: "perk-images/Styles/Inspiration/UnsealedSpellbook/UnsealedSpellbook.png",
-    8369: "perk-images/Styles/Inspiration/FirstStrike/FirstStrike.png",
-    8005: "perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png",
-    8008: "perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png",
-    8021: "perk-images/Styles/Precision/FleetFootwork/FleetFootwork.png",
-    8010: "perk-images/Styles/Precision/Conqueror/Conqueror.png",
-    8437: "perk-images/Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.png",
-    8439: "perk-images/Styles/Resolve/VeteranAftershock/VeteranAftershock.png",
-    8465: "perk-images/Styles/Resolve/Guardian/Guardian.png",
-    8214: "perk-images/Styles/Sorcery/SummonAery/SummonAery.png",
-    8229: "perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png",
-    8230: "perk-images/Styles/Sorcery/PhaseRush/PhaseRush.png",
-  };
-  const spells = {
-    1: "SummonerBoost",
-    3: "SummonerExhaust",
-    4: "SummonerFlash",
-    6: "SummonerHaste",
-    7: "SummonerHeal",
-    11: "SummonerSmite",
-    12: "SummonerTeleport",
-    13: "SummonerMana",
-    14: "SummonerDot",
-    21: "SummonerBarrier",
-    30: "SummonerPoroRecall",
-    31: "SummonerPoroThrow",
-    32: "SummonerSnowball",
-    39: "SummonerSnowURFSnowball_Mark",
-    54: "Summoner_UltBookPlaceholder",
-    55: "Summoner_UltBookSmitePlaceholder",
-    2202: "SummonerCherryFlash",
-    2201: "SummonerCherryHold",
-  };
-
   const match = await getMatch(matchId);
   const player = getPlayer(match, puuid);
 
@@ -99,8 +59,8 @@ export default async function Match({ matchId, puuid }) {
   ];
 
   return (
-    <div className="flex gap-4 shadow my-2 bg-gray-100 items-center">
-      <div>
+    <div className="flex gap-4 shadow my-2 px-2 bg-gray-100 items-center">
+      <div className="basis-16">
         <p className="text-xs text-gray-500">{match.info.gameMode}</p>
         {player.win && (
           <h3 className="text-lg text-green-500 font-medium">Victory</h3>

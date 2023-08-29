@@ -12,16 +12,47 @@ h2 {
 }
 
 .navbar {
-  @apply flex
-  items-center
-  shadow-sm
-  pb-2;
+  @apply items-center
+  border-b-2
+  pb-2
+  mb-4;
 }
 
 .nav-item {
-  @apply border-b-2 border-blue-500 border-opacity-0 hover:text-blue-500 hover:border-opacity-100;
+  @apply text-lg
+  px-2
+  md:px-0
+  border-l-2
+  md:border-l-0
+  md:border-b-2 
+  border-blue-500 
+  border-opacity-0 
+  transition 
+  hover:text-blue-500 
+  hover:border-opacity-100;
 }
 
 .container {
   @apply m-4;
+}
+
+.dropdown {
+  @apply relative inline-block;
+}
+
+.dropdown-content {
+  @apply hidden absolute bg-white shadow-lg;
+}
+
+.dropdown:hover .dropdown-content {
+  @apply block;
+}
+
+.drop-item {
+  @apply px-4 py-1 w-full hover:bg-gray-200;
+}
+
+.dropdown-scrollable {
+  max-height: 150px; /* Set the maximum height you prefer */
+  overflow-y: auto; /* Add vertical scroll when content exceeds the height */
 }
