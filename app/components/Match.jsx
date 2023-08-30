@@ -1,19 +1,5 @@
-import { runes, spells } from "../constants";
-
-async function getMatch(matchId) {
-  const res = await fetch(
-    "https://europe.api.riotgames.com/lol/match/v5/matches/" +
-      matchId +
-      "?api_key=" +
-      process.env.RIOT_API_KEY,
-    {
-      next: {
-        revalidate: 60 * 60,
-      },
-    }
-  );
-  return res.json();
-}
+import { queues, runes, spells } from "../constants";
+import { getMatch } from "../fetchingFunctions";
 
 function getPlayer(match, puuid) {
   return match.info.participants.find((player) => player.puuid == puuid);
@@ -59,9 +45,9 @@ export default async function Match({ matchId, puuid }) {
   ];
 
   return (
-    <div className="flex gap-4 shadow my-2 px-2 bg-gray-100 items-center">
+    <div className="flex gap-4 shadow px-2 bg-gray-100 items-center">
       <div className="basis-16">
-        <p className="text-xs text-gray-500">{match.info.gameMode}</p>
+        <p className="text-xs text-gray-500">{queues[match.info.queueId]}</p>
         {player.win && (
           <h3 className="text-lg text-green-500 font-medium">Victory</h3>
         )}
@@ -75,7 +61,7 @@ export default async function Match({ matchId, puuid }) {
         <div>
           <img
             src={
-              "http://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/" +
+              "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/" +
               player.championName +
               ".png"
             }
@@ -106,7 +92,7 @@ export default async function Match({ matchId, puuid }) {
         <div>
           <img
             src={
-              "https://ddragon.canisback.com/latest/img/spell/" +
+              "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/spell/" +
               spells[player.summoner1Id] +
               ".png"
             }
@@ -115,7 +101,7 @@ export default async function Match({ matchId, puuid }) {
           />
           <img
             src={
-              "https://ddragon.canisback.com/latest/img/spell/" +
+              "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/spell/" +
               spells[player.summoner2Id] +
               ".png"
             }
@@ -128,7 +114,7 @@ export default async function Match({ matchId, puuid }) {
         {playerItems.map((item) => (
           <img
             src={
-              "http://ddragon.leagueoflegends.com/cdn/13.16.1/img/item/" +
+              "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/item/" +
               item +
               ".png"
             }
