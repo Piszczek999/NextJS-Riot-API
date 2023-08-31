@@ -1,5 +1,4 @@
 import { queues, runes, spells } from "../constants";
-import { getMatch } from "../fetchingFunctions";
 
 function getPlayer(match, puuid) {
   return match.info.participants.find((player) => player.puuid == puuid);
@@ -30,10 +29,8 @@ function getGameDuration(match) {
   return formattedTime;
 }
 
-export default async function Match({ matchId, puuid }) {
-  const match = await getMatch(matchId);
+export default function Match({ match, puuid }) {
   const player = getPlayer(match, puuid);
-
   const playerItems = [
     player.item0,
     player.item1,
@@ -46,7 +43,7 @@ export default async function Match({ matchId, puuid }) {
 
   return (
     <div className="flex gap-4 shadow px-2 bg-gray-100 items-center">
-      <div className="basis-16">
+      <div className="basis-20">
         <p className="text-xs text-gray-500">{queues[match.info.queueId]}</p>
         {player.win && (
           <h3 className="text-lg text-green-500 font-medium">Victory</h3>
@@ -57,9 +54,10 @@ export default async function Match({ matchId, puuid }) {
         <p className="text-xs text-gray-500">{getGameDuration(match)}</p>
       </div>
 
-      <div className="flex">
+      <div className="flex gap-1">
         <div>
           <img
+            className="rounded-full"
             src={
               "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/" +
               player.championName +
@@ -72,25 +70,28 @@ export default async function Match({ matchId, puuid }) {
             <img
               className="bg-gray-300 rounded-full"
               src={
-                "https://ddragon.canisback.com/img/" +
-                runes[getPrimaryRune(player)]
+                "https://lolg-cdn.porofessor.gg/img/d/perks/13.16/64/" +
+                getPrimaryRune(player) +
+                ".png"
               }
-              alt="Primary rune"
+              alt=""
               width={20}
             />
             <img
               className="bg-gray-300 rounded-full p-1"
               src={
-                "https://ddragon.canisback.com/img/" +
-                runes[getSecondaryRune(player)]
+                "https://lolg-cdn.porofessor.gg/img/d/perks/13.16/64/" +
+                getSecondaryRune(player) +
+                ".png"
               }
-              alt="Secondary rune"
+              alt=""
               width={20}
             />
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-1">
           <img
+            className="rounded"
             src={
               "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/spell/" +
               spells[player.summoner1Id] +
@@ -100,6 +101,7 @@ export default async function Match({ matchId, puuid }) {
             width={25}
           />
           <img
+            className="rounded"
             src={
               "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/spell/" +
               spells[player.summoner2Id] +
@@ -110,18 +112,37 @@ export default async function Match({ matchId, puuid }) {
           />
         </div>
       </div>
+
       <div className="grid grid-cols-4 gap-0.5">
-        {playerItems.map((item) => (
-          <img
-            src={
-              "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/item/" +
-              item +
-              ".png"
-            }
-            alt=""
-            width={30}
-          />
-        ))}
+        {playerItems.map((item) =>
+          item ? (
+            <img
+              key={item}
+              src={
+                "https://ddragon.leagueoflegends.com/cdn/13.16.1/img/item/" +
+                item +
+                ".png"
+              }
+              alt=""
+              width={30}
+            />
+          ) : (
+            <div className="size-30px bg-gray-300 border-2 border-gray-400"></div>
+          )
+        )}
+      </div>
+
+      <div className="text-center">
+        <p className="font-medium text-gray-600">{`${player.kills} / ${player.deaths} / ${player.assists}`}</p>
+        <p className="text-xs text-gray-600">{`${
+          player.totalMinionsKilled
+        } CS (${(
+          player.totalMinionsKilled /
+          (match.info.gameDuration / 60)
+        ).toFixed(1)})`}</p>
+        <p className="text-xs text-gray-600">{`${Math.round(
+          player.challenges?.killParticipation * 100
+        )}% KP`}</p>
       </div>
     </div>
   );

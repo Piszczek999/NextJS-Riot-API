@@ -44,7 +44,6 @@ export default async function ProfileLeagues({ summoner, region }) {
   const leagueData = await getLeagueData(summoner.id, region);
   const tftLeagueData = await getTFTLeagueData(summoner.id, region);
   const leagues = initLeagues(leagueData, tftLeagueData);
-  Object.keys(leagues).map((queue) => console.log(queue));
 
   return (
     <div className="flex flex-col gap-2">

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.size-30px {
+  width: 30px;
+  height: 30px;
+}
+
+.h-76px {
+  height: 76px;
+}
+
 body {
   @apply m-4;
 }

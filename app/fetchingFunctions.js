@@ -4,7 +4,7 @@ export async function getMatchIds(puuid) {
   const res = await fetch(
     "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" +
       puuid +
-      "/ids?start=0&count=5&api_key=" +
+      "/ids?start=0&count=100&api_key=" +
       process.env.RIOT_API_KEY,
     {
       next: {
@@ -33,7 +33,6 @@ export async function getSummoner(name, region) {
   if (!res.ok) {
     notFound();
   }
-
   return res.json();
 }
 

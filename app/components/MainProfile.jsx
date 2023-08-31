@@ -1,6 +1,3 @@
-import Image from "next/image";
-import bronze from "../ranked-emblem/emblem-bronze.png";
-
 export default async function MainProfile({ summoner }) {
   return (
     <div className="flex p-2 pb-4 bg-gray-300 shadow">
