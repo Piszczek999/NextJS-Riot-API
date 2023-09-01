@@ -1,14 +1,10 @@
 export default async function MainProfile({ summoner }) {
   return (
-    <div className="flex p-2 pb-4 bg-gray-300 shadow">
+    <div className="flex p-2 pb-4 bg-gray-300 shadow h-32">
       <div className="relative">
         <img
           className="rounded-full drop-shadow-lg"
-          src={
-            "http://ddragon.leagueoflegends.com/cdn/13.16.1/img/profileicon/" +
-            summoner.profileIconId +
-            ".png"
-          }
+          src={`http://ddragon.leagueoflegends.com/cdn/13.16.1/img/profileicon/${summoner.profileIconId}.png`}
           alt=""
           width={100}
         />

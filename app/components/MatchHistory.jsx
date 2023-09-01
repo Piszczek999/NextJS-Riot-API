@@ -20,10 +20,10 @@ export default function MatchHistory({ summoner, matchIds }) {
   useEffect(() => {
     const fetchMatches = async () => {
       setLoading(true);
-      const matchData = await Promise.all(
-        matchIds.slice(0, visibleMatches).map(clientGetMatch)
+      const additionalMatches = await Promise.all(
+        matchIds.slice(visibleMatches - 5, visibleMatches).map(clientGetMatch)
       );
-      setMatches(matchData);
+      setMatches((prevMatches) => [...prevMatches, ...additionalMatches]);
       setLoading(false);
     };
     fetchMatches();
@@ -40,15 +40,16 @@ export default function MatchHistory({ summoner, matchIds }) {
       ))}
       {loading &&
         [1, 2, 3, 4, 5].map(() => (
-          <div className="flex h-76px gap-4 shadow px-2 bg-gray-100 items-center">
-            <div className="basis-20 h-auto bg-gray-200 rounded"></div>
-            <div className="basis-20 bg-gray-200 rounded"></div>
-            <div className="basis-32 bg-gray-200 rounded"></div>
-            <div className="basis-20 bg-gray-200 rounded"></div>
+          <div className="flex h-24 gap-4 shadow px-2 bg-gray-100 items-center">
+            <div className="basis-20 h-5/6 bg-gray-200 rounded"></div>
+            <div className="basis-20 h-5/6 bg-gray-200 rounded"></div>
+            <div className="basis-32 h-5/6 bg-gray-200 rounded"></div>
+            <div className="basis-20 h-5/6 bg-gray-200 rounded"></div>
+            <div className="basis-56 h-5/6 bg-gray-200 rounded"></div>
           </div>
         ))}
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
         onClick={loadMoreMatches}
       >
         Load More

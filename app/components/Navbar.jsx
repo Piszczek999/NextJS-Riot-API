@@ -14,7 +14,11 @@ export default function Navbar() {
   return (
     <nav className="navbar md:flex">
       <div className="flex justify-between">
-        <Link href="/" className="md:border-r-2 md:pr-4">
+        <Link
+          href="/"
+          className="md:border-r-2 md:pr-4 flex gap-4 items-center"
+        >
+          <img src="/lolStats-logo.png" alt="" width={56} />
           <h1 className="text-4xl hover:text-blue-700">LoLStats</h1>
         </Link>
         <div className="md:hidden">

@@ -22,7 +22,7 @@ export default function Searchbar() {
         <button type="button" className="px-2">
           <p className="uppercase">{region}</p>
         </button>
-        <div className="dropdown-content dropdown-scrollable">
+        <div className="dropdown-content dropdown-scrollable z-10 rounded-xl">
           {Object.keys(regions).map((regionKey) => (
             <button
               key={regionKey}
