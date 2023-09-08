@@ -130,7 +130,10 @@ export default function Match({ match, puuid }) {
               width={30}
             />
           ) : (
-            <div className="size-30px bg-gray-300 border-2 border-gray-400"></div>
+            <div
+              key={item}
+              className="size-30px bg-gray-300 border-2 border-gray-400"
+            ></div>
           )
         )}
       </div>
@@ -152,8 +155,8 @@ export default function Match({ match, puuid }) {
         <div className="flex flex-col gap-px w-24 whitespace-nowrap overflow-hidden mx-1">
           {match.info.participants
             .filter((player) => player.teamId === 100)
-            .map((player) => (
-              <div className="flex items-center gap-1">
+            .map((player, r) => (
+              <div key={r} className="flex items-center gap-1">
                 <img
                   className="rounded"
                   src={`https://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/${player.championName}.png`}
@@ -174,8 +177,8 @@ export default function Match({ match, puuid }) {
         <div className="flex flex-col gap-px w-24 whitespace-nowrap overflow-hidden mx-1">
           {match.info.participants
             .filter((player) => player.teamId === 200)
-            .map((player) => (
-              <div className="flex items-center gap-1">
+            .map((player, r) => (
+              <div key={r} className="flex items-center gap-1">
                 <img
                   className="rounded"
                   src={`https://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/${player.championName}.png`}

@@ -39,8 +39,11 @@ export default function MatchHistory({ summoner, matchIds }) {
         />
       ))}
       {loading &&
-        [1, 2, 3, 4, 5].map(() => (
-          <div className="flex h-24 gap-4 shadow px-2 bg-gray-100 items-center">
+        [1, 2, 3, 4, 5].map((e) => (
+          <div
+            key={e}
+            className="flex h-24 gap-4 shadow px-2 bg-gray-100 items-center"
+          >
             <div className="basis-20 h-5/6 bg-gray-200 rounded"></div>
             <div className="basis-20 h-5/6 bg-gray-200 rounded"></div>
             <div className="basis-32 h-5/6 bg-gray-200 rounded"></div>

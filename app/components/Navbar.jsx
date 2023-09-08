@@ -18,7 +18,12 @@ export default function Navbar() {
           href="/"
           className="md:border-r-2 md:pr-4 flex gap-4 items-center"
         >
-          <img src="/lolStats-logo.png" alt="" width={56} />
+          <img
+            className="bg-gray-300 rounded p-1 hover:bg-blue-200"
+            src="/lolStats-logo.png"
+            alt=""
+            width={56}
+          />
           <h1 className="text-4xl hover:text-blue-700">LoLStats</h1>
         </Link>
         <div className="md:hidden">
