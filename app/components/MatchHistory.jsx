@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Match from "./Match";
 
 async function clientGetMatch(matchId) {
-  const res = await fetch("http://localhost:3000/api/match/" + matchId);
+  const res = await fetch("/api/match/" + matchId);
   return res.json();
 }
 
