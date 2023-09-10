@@ -3,11 +3,13 @@
 import Link from "next/link";
 import Searchbar from "./Searchbar";
 
-const navLinks = [{ href: "/stats", label: "Statistics" }];
+const navLinks = [
+  // { href: "/stats", label: "Statistics" }
+];
 
 const authLinks = [
-  { href: "/login", label: "Log in" },
-  { href: "/register", label: "Sign up" },
+  // { href: "/login", label: "Log in" },
+  // { href: "/register", label: "Sign up" },
 ];
 
 export default function Navbar() {
