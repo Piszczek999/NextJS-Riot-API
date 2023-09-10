@@ -186,7 +186,13 @@ export default function Match({ match, puuid }) {
                   width={16}
                   key={player.championName}
                 />
-                <p className="text-xs">{player.summonerName}</p>
+                <Link
+                  href={`/summoner/${match.info.platformId.toLowerCase()}/${
+                    player.summonerName
+                  }`}
+                >
+                  <p className="text-xs">{player.summonerName}</p>
+                </Link>
               </div>
             ))}
         </div>
