@@ -12,12 +12,12 @@ h2 {
   @apply text-blue-900 font-bold text-xl;
 }
 
-.navbar {
-  @apply items-center
-  border-b-2
-  h-16
-  p-2
-  mb-4;
+.homepage {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("/background.png");
+  background-size: cover;
+  z-index: -1;
 }
 
 .nav-item {
@@ -34,8 +34,8 @@ h2 {
   hover:border-opacity-100;
 }
 
-.container {
-  @apply m-4;
+.wrapper {
+  @apply p-4;
 }
 
 .dropdown {
